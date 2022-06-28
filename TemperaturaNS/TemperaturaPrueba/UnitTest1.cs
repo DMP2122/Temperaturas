@@ -11,7 +11,7 @@ namespace TemperaturaPrueba
         [TestMethod]
         public void PruebaDatosCorrectos() //Esta prueba pretende sacar un error si la temperatura máxima o mínima es mayor o menor de lo introducido en la clase
         {
-            Prediccion miPrediccionPrueba = new Prediccion();
+            Pred miPrediccionPrueba = new Pred();
             List<double> dia1 = new List<double>(),
                          dia2 = new List<double>(),
                          dia3 = new List<double>();
@@ -50,10 +50,10 @@ namespace TemperaturaPrueba
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception),Prediccion.NoListaVacia1)]
+        [ExpectedException(typeof(Exception),Pred.NoListaVacia1)]
         public void PruebaDia1Vacio ()
         {
-            Prediccion miPrediccionPrueba = new Prediccion();
+            Pred miPrediccionPrueba = new Pred();
             List<double> dia1 = new List<double>(),
                          dia2 = new List<double>(),
                          dia3 = new List<double>();
@@ -65,10 +65,10 @@ namespace TemperaturaPrueba
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), Prediccion.NoListaVacia2)]
+        [ExpectedException(typeof(Exception), Pred.NoListaVacia2)]
         public void PruebaDia2Vacio()
         {
-            Prediccion miPrediccionPrueba = new Prediccion();
+            Pred miPrediccionPrueba = new Pred();
 
             List<double> dia1 = new List<double>(),
                          dia2 = new List<double>(),
@@ -84,7 +84,7 @@ namespace TemperaturaPrueba
 
         public void PruebaDia3Vacio()
         {
-            Prediccion miPrediccionPrueba = new Prediccion();
+            Pred miPrediccionPrueba = new Pred();
 
             List<double> dia1 = new List<double>(),
                          dia2 = new List<double>(),
@@ -98,7 +98,7 @@ namespace TemperaturaPrueba
             }
             catch (Exception e)
             {
-                StringAssert.Contains(e.Message, Prediccion.NoListaVacia3);
+                StringAssert.Contains(e.Message, Pred.NoListaVacia3);
                 return;
             }
             Assert.Fail("Error");

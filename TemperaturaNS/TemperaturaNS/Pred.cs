@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TemperaturaNS
 {
-    public class Prediccion
+    public class Pred
     {
         public const string NoListaVacia1 = "Faltan datos en el día 1";
         public const string NoListaVacia2 = "Faltan datos en el día 2";
@@ -28,7 +28,7 @@ namespace TemperaturaNS
         /// <summary>
         /// Constuctor que inicializan las variables
         /// </summary>
-        public Prediccion()
+        public Pred()
         {
             TempCelsius = 0;
             TempFarenheit = 0;
