@@ -35,6 +35,7 @@ namespace TemperaturaPrueba
             double temperaturaMediaDia1 = 16.4;
             double temperaturaMediaDia2 = 15.6;
             double temperaturaMediaDia3 = 18.7;
+
             double celsuiusEsperados = 17.155;
             double farenheitEsperados = 62.879;
             double temperaturaMaxEsperada = 23;
@@ -44,7 +45,7 @@ namespace TemperaturaPrueba
 
             Assert.AreEqual(celsuiusEsperados, miPrediccionPrueba.TempCelsius, 0.001, "Los valores no son correctos");
             Assert.AreEqual(farenheitEsperados, miPrediccionPrueba.TempFarenheit, 0.001, "Los valores no son correctos");
-            Assert.AreEqual(temperaturaMaxEsperada, miPrediccionPrueba.TempMax, "Los valores no son correctos");
+            Assert.AreEqual(temperaturaMaxEsperada, miPrediccionPrueba.TempMax,  "Los valores no son correctos");
             Assert.AreEqual(temperaturaMinEsperada, miPrediccionPrueba.TempMin, "Los valores no son correctos");
         }
 

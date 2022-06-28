@@ -25,7 +25,6 @@ namespace TemperaturaNS
         public double TempMax { get => tempMax; set => tempMax = value; }
         public double TempMin { get => tempMin; set => tempMin = value; }
 
-
         /// <summary>
         /// Constuctor que inicializan las variables
         /// </summary>
@@ -39,78 +38,53 @@ namespace TemperaturaNS
 
         /// <summary>
         /// Funcion que predice la temperatura a raiz de tres dias de observacion
-        /// <para>calculamos la temperatura media total, dándo más peso al último día que al primero</para>
+        /// <para>calculamos la temperatura media total de cada dia de observacion, dándo más peso al último día que al primero</para>
+        /// <para>y obtenemos los grados en celsuis y farenheit</para>
         /// </summary>
-        /// <param name="observacionDia1">datos de orsevacion de dia 1</param>
-        /// <param name="observacionDia2">datos de orsevacion de dia 2</param>
-        /// <param name="observacionDia3">datos de orsevacion de dia 3</param>
+        /// <remarks>El metodo calcula las temeperatura media del dia 1<paramref name="observacionDia1"/>
+        /// la temperatura media del dia 2 <paramref name="observacionDia2"/>y la del dia 3 <paramref name="observacionDia3"/></remarks>
+        /// <returns>devuelve la prevision basada en el metodo, con la temperatura máxima<see cref=">
+        /// TempMax"/> y la mínima <see cref=">TempMin"/>al igual que los grados celsius <see cref=">TempCelsius"/>
+        /// y los farengeit<see cref=">TempFarenheit"/></returns> 
         /// <exception cref="Exception">La lista no puede estar vacía</exception>
-        /// <returns>devuelve la prevision basada en el metodo</returns>  
 
-        public bool PredecirTemperatura(List<double> observacionDia1,
-            List<double> observacionDia2, List<double> observacionDia3)
+        public bool PredecirTemperatura(List<double> observacionDia1, List<double> observacionDia2, List<double> observacionDia3)
         {
-            int i;
-            double tempMedia1 = 0,
-                   tempMedia2 = 0,
-                   tempMedia3 = 0; // temperatura media de cada día
-
-            if (observacionDia1.Count <= 0)
-            {
-                throw new Exception(NoListaVacia1);
-                // Tenemos que tener al menos una observación
-            }
-            i = CalcularPrevision(observacionDia1, ref tempMedia1);
-
-            tempMedia1 = tempMedia1 / observacionDia1.Count;
-
-
-
-            if (observacionDia2.Count <= 0)
-            {
-                     throw new Exception(NoListaVacia2);
-                // Tenemos que tener al menos una observación
-            }
-
-            i = CalcularPrevision(observacionDia2, ref tempMedia2);
-
-            tempMedia2 = tempMedia2 / observacionDia2.Count;
-
-            if (observacionDia3.Count <= 0)
-            {
-                    throw new Exception(NoListaVacia3);
-                // Tenemos que tener al menos una observación
-            }
-
-            i = CalcularPrevision(observacionDia3, ref tempMedia3);
-
-            tempMedia3 = tempMedia3 / observacionDia3.Count;
-
-             TempCelsius = 0.2 * tempMedia1 + 0.35 * tempMedia2 + 0.45 * tempMedia3;
-             TempFarenheit = (TempCelsius * 1.8) + 32;
+            double tempMedia1 = CalcularPrevision(observacionDia1, NoListaVacia1);
+            double tempMedia2 = CalcularPrevision(observacionDia2, NoListaVacia2);
+            double tempMedia3 = CalcularPrevision(observacionDia3, NoListaVacia3);
+            TempCelsius = 0.2 * tempMedia1 + 0.35 * tempMedia2 + 0.45 * tempMedia3;
+            TempFarenheit = (TempCelsius * 1.8) + 32;
             // calculamos también la temperatura en grados farenheit
 
             return true;
         }
 
-        private int CalcularPrevision(List<double> observacionDia1, ref double tempMedia1)
+        private double CalcularPrevision(List<double> observacionDia, string excepcion)
         {
-            int i;
-            for (i = 0; i < observacionDia1.Count; i++)
+            double tempMedia = 0;
+            if (observacionDia.Count <= 0)
             {
-                tempMedia1 = tempMedia1 + observacionDia1[i];
-
-                if (TempMin > observacionDia1[i])
-                {
-                    TempMin = observacionDia1[i];
-                }
-
-                if (TempMax < observacionDia1[i])
-                {
-                    TempMax = observacionDia1[i];
-                }
+                throw new Exception(excepcion);
+                // Tenemos que tener al menos una observación
             }
-            return i;
+            for (int i = 0; i < observacionDia.Count; i++)
+            {
+                tempMedia = tempMedia + observacionDia[i];
+
+                if (TempMin > observacionDia[i])
+                {
+                    TempMin = observacionDia[i];
+                }
+
+                if (TempMax < observacionDia[i])
+                {
+                    TempMax = observacionDia[i];
+                }
+
+            }
+            return tempMedia / observacionDia.Count;
+            
         }
     }
 }
